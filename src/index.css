@@ -5,14 +5,38 @@
 }
 
 body {
+  background-color: #272727;
+  color: white;
+  margin: 20px auto;
+  max-width: 1240px;
   font-family: Arial, Helvetica, sans-serif;
-  padding: 20px;
+}
+
+main {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 0 20px;
 }
 
 button {
   padding: 12px;
+  border: none;
+  border-radius: 6px;
+  background-color: #028090;
+  color: white;
+  font-size: 1.2em;
+  cursor: pointer;
 }
 
 ul {
   list-style-type: none;
+}
+ul li {
+  padding: 4px 0;
+  cursor: pointer;
+}
+
+ul li:hover {
+  color: hotpink;
 }

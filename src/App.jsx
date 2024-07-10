@@ -3,12 +3,13 @@ import axios from "axios";
 import { useState } from "react";
 
 function App() {
+  const [currentPage, setCurrentPage] = useState(1);
   const [movies, setMovies] = useState([]);
   const [movieDetails, setMovieDetails] = useState(null);
 
-  async function handleLoadMovies() {
+  async function handleLoadMovies(page = 1) {
     const { data, status } = await axios.get(
-      "https://campus-api-movies.onrender.com/movies/"
+      `https://campus-api-movies.onrender.com/movies?page=${page}`
     );
     console.log(data.result);
     console.log("totalCount", data.totalCount);
@@ -30,29 +31,54 @@ function App() {
     }
   }
 
+  async function loadNextPage() {
+    setCurrentPage((prev) => prev + 1);
+    handleLoadMovies(currentPage + 1);
+  }
+
+  async function loadPrevPage() {
+    setCurrentPage((prev) => prev - 1);
+    handleLoadMovies(currentPage - 1);
+  }
+
   return (
-    <>
-      <h1>API Demo</h1>
+    <main>
+      <h1>API Demo - Movies</h1>
       <button onClick={handleLoadMovies}>Load Movies</button>
-      {/* <button onClick={() => handleLoadMovie("tt0068646")}>
-        Load Movie tt0068646
-      </button> */}
+
       <div className="flex-container">
-        <ul className="flex-child">
-          {movies.map((movie) => {
-            return <li key={movie.id}>{movie.title}</li>;
-          })}
-        </ul>
+        <div className="flex-child">
+          <p>Current Page: {currentPage}</p>
+          <ul>
+            {movies.map((movie) => {
+              return (
+                <li onClick={() => handleLoadMovie(movie.id)} key={movie.id}>
+                  {movie.title}
+                </li>
+              );
+            })}
+          </ul>
+          <div className="list-navigation">
+            <button onClick={loadPrevPage}>Prev</button>
+            <button onClick={loadNextPage}>Next</button>
+          </div>
+        </div>
         <div className="flex-child movie-details">
           {movieDetails ? (
             <>
               <h2>{movieDetails.title}</h2>
               <p>{movieDetails.plot}</p>
+              <img src={movieDetails.poster} alt="poster" />
+              <a href={movieDetails.imdbLink}>Mehr auf IMDB</a>
             </>
-          ) : null}
+          ) : (
+            <>
+              <h2>No movie selected</h2>
+            </>
+          )}
         </div>
       </div>
-    </>
+    </main>
   );
 }
 

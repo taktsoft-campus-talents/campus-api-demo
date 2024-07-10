@@ -8,8 +8,13 @@
 }
 
 .movie-details {
-  border: 1px solid black;
   padding: 6px;
-  background-color: blueviolet;
+  background-color: #028090;
   color: white;
+  border-radius: 6px;
+}
+
+.list-navigation {
+  display: flex;
+  gap: 6px;
 }
