@@ -1,0 +1,15 @@
+.flex-container {
+  display: flex;
+  gap: 6px;
+}
+
+.flex-child {
+  flex-basis: 50%;
+}
+
+.movie-details {
+  border: 1px solid black;
+  padding: 6px;
+  background-color: blueviolet;
+  color: white;
+}
